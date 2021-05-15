@@ -27,6 +27,7 @@ func main() {
 		quietMode     bool
 		privateKey    string
 		sourceAddress string
+		counter int
 	)
 
 	results := make(chan *lib.Match, 10000)
@@ -154,12 +155,13 @@ func main() {
 		}()
 
 		for {
+			counter++
 			select {
 			case <-ctx.Done():
 				return
 
 			case <-tock.C:
-				fmt.Printf("\rRate: %s/sec   \b\b", lib.FormatRate(lib.SearchRate()))
+				fmt.Printf("\rRate: %s/sec Counter: %[2]d   \b\b", lib.FormatRate(lib.SearchRate()), counter)
 				rated = true
 
 			case f := <-results:
