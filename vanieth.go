@@ -155,7 +155,6 @@ func main() {
 		}()
 
 		for {
-			counter++
 			select {
 			case <-ctx.Done():
 				return
@@ -188,6 +187,7 @@ func main() {
 
 	// While running
 	for {
+		counter++
 		select {
 		case <-ctx.Done():
 			// Not running anymore
